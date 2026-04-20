@@ -21,7 +21,7 @@ export const Route = createFileRoute("/reports")({
 interface Report {
   id: string;
   name: string;
-  type: "revenue" | "customers" | "inventory";
+  type: "ganacias" | "clientes" | "inventario";
   range: string;
   generatedAt: string;
   size: string;
@@ -30,24 +30,24 @@ interface Report {
 const initial: Report[] = [
   {
     id: "R-0042",
-    name: "Monthly revenue — March 2025",
-    type: "revenue",
+    name: "Ingresos mensuales — marzo de 2025",
+    type: "ganacias",
     range: "2025-03-01 to 2025-03-31",
     generatedAt: "2025-04-01",
     size: "148 KB",
   },
   {
     id: "R-0041",
-    name: "New customers Q1",
-    type: "customers",
+    name: "Nuevos clientes Q1",
+    type: "clientes",
     range: "2025-01-01 to 2025-03-31",
     generatedAt: "2025-04-01",
     size: "92 KB",
   },
   {
     id: "R-0040",
-    name: "Inventory snapshot",
-    type: "inventory",
+    name: "Snapshot del inventario",
+    type: "inventario",
     range: "2025-03-31",
     generatedAt: "2025-03-31",
     size: "312 KB",
@@ -55,16 +55,16 @@ const initial: Report[] = [
 ];
 
 const typeIcon = {
-  revenue: FileBarChart,
-  customers: FileText,
-  inventory: FileSpreadsheet,
+  ganacias: FileBarChart,
+  clientes: FileText,
+  inventario: FileSpreadsheet,
 };
 
 function ReportsPage() {
   const [reports, setReports] = useState<Report[]>(initial);
   const [from, setFrom] = useState("2025-04-01");
   const [to, setTo] = useState("2025-04-30");
-  const [type, setType] = useState<Report["type"]>("revenue");
+  const [type, setType] = useState<Report["type"]>("ganacias");
 
   const generate = () => {
     const id = `R-00${50 + reports.length}`;
@@ -105,9 +105,9 @@ function ReportsPage() {
               onChange={(e) => setType(e.target.value as Report["type"])}
               className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
             >
-              <option value="revenue">Ganancia</option>
-              <option value="customers">Clientes</option>
-              <option value="inventory">Inventario</option>
+              <option value="ganacias">Ganancia</option>
+              <option value="clientes">Clientes</option>
+              <option value="inventario">Inventario</option>
             </select>
           </div>
           <div>

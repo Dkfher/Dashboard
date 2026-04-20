@@ -8,49 +8,49 @@ const orders = [
     customer: "Sofia Chen",
     email: "sofia@acme.co",
     amount: "$1,240.00",
-    status: "paid",
+    status: "pago",
   },
   {
     id: "#A-1041",
     customer: "Marcus Reid",
     email: "marcus@northwind.io",
     amount: "$820.50",
-    status: "pending",
+    status: "pendiente",
   },
   {
     id: "#A-1040",
     customer: "Lina Park",
     email: "lina@vertex.dev",
     amount: "$3,410.00",
-    status: "paid",
+    status: "pago",
   },
   {
     id: "#A-1039",
     customer: "Diego Alvarez",
     email: "diego@studio.ai",
     amount: "$215.00",
-    status: "refunded",
+    status: "devuelto",
   },
   {
     id: "#A-1038",
     customer: "Emma Wright",
     email: "emma@bloom.co",
     amount: "$1,790.25",
-    status: "paid",
+    status: "pago",
   },
   {
     id: "#A-1037",
     customer: "Noah Patel",
     email: "noah@flux.app",
     amount: "$540.00",
-    status: "pending",
+    status: "pendiente",
   },
 ];
 
 const statusStyles: Record<string, string> = {
-  paid: "bg-success/10 text-success border-success/20",
-  pending: "bg-warning/10 text-warning border-warning/20",
-  refunded: "bg-muted text-muted-foreground border-border",
+  pago: "bg-success/10 text-success border-success/20",
+  pendiente: "bg-warning/10 text-warning border-warning/20",
+  devuelto: "bg-muted text-muted-foreground border-border",
 };
 
 export function RecentOrders() {

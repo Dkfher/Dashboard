@@ -194,7 +194,7 @@ function SettingsPage() {
               <Switch />
             </div>
             <div className="pt-2">
-              <Button onClick={() => toast.success("Password updated")}>
+              <Button onClick={() => toast.success("Contraseña actualizada")}>
                 Actualizar contraseña
               </Button>
             </div>

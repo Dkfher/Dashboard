@@ -31,7 +31,7 @@ export const Route = createFileRoute("/orders")({
   component: OrdersPage,
 });
 
-type Status = "paid" | "pending" | "refunded" | "cancelled";
+type Status = "pago" | "pendiente" | "devuelto" | "cancelado";
 
 interface Order {
   id: string;
@@ -49,7 +49,7 @@ const seed: Order[] = [
     customer: "Sofia Chen",
     email: "sofia@acme.co",
     amount: 1240,
-    status: "paid",
+    status: "pago",
     date: "2025-04-18",
     items: [{ name: "Pro Plan (annual)", qty: 1, price: 1240 }],
   },
@@ -58,7 +58,7 @@ const seed: Order[] = [
     customer: "Marcus Reid",
     email: "marcus@northwind.io",
     amount: 820.5,
-    status: "pending",
+    status: "pendiente",
     date: "2025-04-18",
     items: [{ name: "Starter Kit", qty: 2, price: 410.25 }],
   },
@@ -67,7 +67,7 @@ const seed: Order[] = [
     customer: "Lina Park",
     email: "lina@vertex.dev",
     amount: 3410,
-    status: "paid",
+    status: "pago",
     date: "2025-04-17",
     items: [{ name: "Enterprise Seat", qty: 5, price: 682 }],
   },
@@ -76,7 +76,7 @@ const seed: Order[] = [
     customer: "Diego Alvarez",
     email: "diego@studio.ai",
     amount: 215,
-    status: "refunded",
+    status: "devuelto",
     date: "2025-04-17",
     items: [{ name: "Basic", qty: 1, price: 215 }],
   },
@@ -85,7 +85,7 @@ const seed: Order[] = [
     customer: "Emma Wright",
     email: "emma@bloom.co",
     amount: 1790.25,
-    status: "paid",
+    status: "pago",
     date: "2025-04-16",
     items: [{ name: "Pro", qty: 1, price: 1790.25 }],
   },
@@ -94,7 +94,7 @@ const seed: Order[] = [
     customer: "Noah Patel",
     email: "noah@flux.app",
     amount: 540,
-    status: "pending",
+    status: "pendiente",
     date: "2025-04-16",
     items: [{ name: "Starter", qty: 1, price: 540 }],
   },
@@ -103,17 +103,17 @@ const seed: Order[] = [
     customer: "Olivia Kim",
     email: "olivia@mono.io",
     amount: 99,
-    status: "cancelled",
+    status: "cancelado",
     date: "2025-04-15",
     items: [{ name: "Basic", qty: 1, price: 99 }],
   },
 ];
 
 const statusStyles: Record<Status, string> = {
-  paid: "bg-success/10 text-success border-success/20",
-  pending: "bg-warning/10 text-warning border-warning/20",
-  refunded: "bg-muted text-muted-foreground border-border",
-  cancelled: "bg-destructive/10 text-destructive border-destructive/20",
+  pago: "bg-success/10 text-success border-success/20",
+  pendiente: "bg-warning/10 text-warning border-warning/20",
+  devuelto: "bg-muted text-muted-foreground border-border",
+  cancelado: "bg-destructive/10 text-destructive border-destructive/20",
 };
 
 function OrdersPage() {
@@ -141,19 +141,19 @@ function OrdersPage() {
   };
 
   return (
-    <DashboardLayout title="Ordenes" subtitle={`${orders.length} ordenes`}>
+    <DashboardLayout title="Ordenes de pedido" subtitle={`${orders.length} ordenes`}>
       <div className="flex flex-wrap items-center gap-3 justify-between">
         <div className="relative flex-1 min-w-60 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search orders..."
+            placeholder="Buscar pedidos..."
             className="pl-9"
           />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          {(["all", "paid", "pending", "refunded", "cancelled"] as const).map((f) => (
+          {(["all", "pago", "pendiente", "devuelto", "cancelado"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -253,18 +253,18 @@ function OrdersPage() {
                 </div>
               </div>
               <DialogFooter className="gap-2 sm:gap-2">
-                {selected.status !== "paid" && (
-                  <Button onClick={() => updateStatus(selected.id, "paid")}>
+                {selected.status !== "pago" && (
+                  <Button onClick={() => updateStatus(selected.id, "pago")}>
                     Marcar como pagado
                   </Button>
                 )}
-                {selected.status === "paid" && (
-                  <Button variant="outline" onClick={() => updateStatus(selected.id, "refunded")}>
+                {selected.status === "pago" && (
+                  <Button variant="outline" onClick={() => updateStatus(selected.id, "devuelto")}>
                     Reembolso
                   </Button>
                 )}
-                {selected.status !== "cancelled" && (
-                  <Button variant="outline" onClick={() => updateStatus(selected.id, "cancelled")}>
+                {selected.status !== "cancelado" && (
+                  <Button variant="outline" onClick={() => updateStatus(selected.id, "cancelado")}>
                     Cancelar
                   </Button>
                 )}

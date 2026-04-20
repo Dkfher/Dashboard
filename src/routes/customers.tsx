@@ -19,7 +19,7 @@ export const Route = createFileRoute("/customers")({
   component: CustomersPage,
 });
 
-type Segment = "vip" | "active" | "new" | "churned";
+type Segment = "vip" | "activo" | "nuevo" | "inactivo";
 
 const all = [
   {
@@ -37,7 +37,7 @@ const all = [
     email: "marcus@northwind.io",
     spent: 3200,
     orders: 11,
-    segment: "active" as Segment,
+    segment: "activo" as Segment,
     joined: "2023-08-02",
   },
   {
@@ -55,7 +55,7 @@ const all = [
     email: "diego@studio.ai",
     spent: 420,
     orders: 3,
-    segment: "new" as Segment,
+    segment: "nuevo" as Segment,
     joined: "2025-03-10",
   },
   {
@@ -64,7 +64,7 @@ const all = [
     email: "emma@bloom.co",
     spent: 7450,
     orders: 22,
-    segment: "active" as Segment,
+    segment: "activo" as Segment,
     joined: "2024-02-11",
   },
   {
@@ -73,7 +73,7 @@ const all = [
     email: "noah@flux.app",
     spent: 980,
     orders: 5,
-    segment: "new" as Segment,
+    segment: "nuevo" as Segment,
     joined: "2025-01-20",
   },
   {
@@ -82,7 +82,7 @@ const all = [
     email: "olivia@mono.io",
     spent: 215,
     orders: 1,
-    segment: "churned" as Segment,
+    segment: "inactivo" as Segment,
     joined: "2023-11-04",
   },
   {
@@ -91,16 +91,16 @@ const all = [
     email: "lucas@alpha.co",
     spent: 5420,
     orders: 18,
-    segment: "active" as Segment,
+    segment: "activo" as Segment,
     joined: "2024-05-08",
   },
 ];
 
 const segmentStyle: Record<Segment, string> = {
   vip: "bg-primary/10 text-primary border-primary/20",
-  active: "bg-success/10 text-success border-success/20",
-  new: "bg-accent text-accent-foreground border-accent",
-  churned: "bg-muted text-muted-foreground border-border",
+  activo: "bg-success/10 text-success border-success/20",
+  nuevo: "bg-accent text-accent-foreground border-accent",
+  inactivo: "bg-muted text-muted-foreground border-border",
 };
 
 function CustomersPage() {
@@ -131,7 +131,7 @@ function CustomersPage() {
           />
         </div>
         <div className="flex items-center gap-2">
-          {(["all", "vip", "active", "new", "churned"] as const).map((f) => (
+          {(["all", "vip", "activo", "nuevo", "inactivo"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -145,7 +145,7 @@ function CustomersPage() {
               {f}
             </button>
           ))}
-          <Button size="sm" onClick={() => toast.success("Invitation sent")}>
+          <Button size="sm" onClick={() => toast.success("Invitación enviada")}>
             <UserPlus className="h-4 w-4 mr-1" /> Invitar
           </Button>
         </div>
@@ -157,10 +157,10 @@ function CustomersPage() {
             <thead>
               <tr className="text-left text-xs text-muted-foreground border-b border-border bg-muted/30">
                 <th className="font-medium px-5 py-3">Cliente</th>
-                <th className="font-medium py-3">Segmento</th>
-                <th className="font-medium py-3">Ordenes</th>
-                <th className="font-medium py-3 text-right">Total gastado</th>
-                <th className="font-medium py-3">Joined</th>
+                <th className="font-medium px-5 py-3">Segmento</th>
+                <th className="font-medium px-5 py-3">Órdenes</th>
+                <th className="font-medium px-5 py-3 text-right">Total gastado</th>
+                <th className="font-medium px-5 py-3">Se unió en</th>
                 <th className="font-medium px-5 py-3 text-right">Acciones</th>
               </tr>
             </thead>
@@ -192,16 +192,17 @@ function CustomersPage() {
                       {c.segment}
                     </Badge>
                   </td>
-                  <td className="py-3 tabular-nums">{c.orders}</td>
-                  <td className="py-3 text-right font-medium tabular-nums">
+                  <td className="px-5 py-3 tabular-nums">{c.orders}</td>
+                  <td className="px-5 py-3 text-right font-medium tabular-nums">
                     ${c.spent.toLocaleString()}
                   </td>
-                  <td className="py-3 text-muted-foreground text-xs">{c.joined}</td>
+                  <td className="px-5 py-3 text-muted-foreground text-xs">{c.joined}</td>
+
                   <td className="px-5 py-3 text-right">
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => toast(`Email copied: ${c.email}`)}
+                      onClick={() => toast(`Email copiado: ${c.email}`)}
                     >
                       <Mail className="h-4 w-4" />
                     </Button>

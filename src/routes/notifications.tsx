@@ -9,14 +9,14 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/notifications")({
   head: () => ({
     meta: [
-      { title: "Notifications — Apex" },
+      { title: "Notificaciones — Apex" },
       { name: "description", content: "Stay up to date with orders, customers and system alerts." },
     ],
   }),
   component: NotificationsPage,
 });
 
-type Type = "order" | "customer" | "alert" | "message";
+type Type = "pedido" | "cliente" | "alerta" | "mensaje";
 
 interface Notif {
   id: number;
@@ -30,77 +30,77 @@ interface Notif {
 const initial: Notif[] = [
   {
     id: 1,
-    type: "order",
-    title: "New order #A-1042",
-    body: "Sofia Chen placed an order for $1,240.00",
-    time: "2m ago",
+    type: "pedido",
+    title: "Nuevo pedido #A-1042",
+    body: "Sofia Chen realizó un pedido por $1,240.00",
+    time: "Hace 2 min",
     read: false,
   },
   {
     id: 2,
-    type: "customer",
-    title: "New signup",
-    body: "Diego Alvarez joined your platform",
-    time: "18m ago",
+    type: "cliente",
+    title: "Nuevo registro",
+    body: "Diego Álvarez se unió a su plataforma",
+    time: "Hace 18 min",
     read: false,
   },
   {
     id: 3,
-    type: "alert",
-    title: "Low stock warning",
-    body: "3 products are below minimum threshold",
-    time: "1h ago",
+    type: "alerta",
+    title: "Advertencia de bajo stock",
+    body: "3 productos están por debajo del umbral mínimo",
+    time: "Hace 1 hora",
     read: false,
   },
   {
     id: 4,
-    type: "message",
-    title: "New message",
-    body: "Marcus Reid: Can we schedule a call this week?",
-    time: "3h ago",
+    type: "mensaje",
+    title: "Nuevo mensaje",
+    body: "Marcus Reid: ¿Podemos programar una llamada para esta semana?",
+    time: "Hace 3 horas",
     read: true,
   },
   {
     id: 5,
-    type: "order",
-    title: "Order refunded",
-    body: "#A-1039 was refunded to Diego Alvarez",
-    time: "Yesterday",
+    type: "pedido",
+    title: "Pedido reembolsado",
+    body: "El pedido #A-1039 fue reembolsado a Diego Álvarez.",
+    time: "Ayer",
     read: true,
   },
   {
     id: 6,
-    type: "customer",
-    title: "VIP upgrade",
-    body: "Lina Park reached VIP status",
-    time: "Yesterday",
+    type: "cliente",
+    title: "VIP plus",
+    body: "Lina Park alcanzó el status VIP.",
+    time: "Ayer",
     read: true,
   },
 ];
 
 const typeIcon: Record<Type, typeof ShoppingBag> = {
-  order: ShoppingBag,
-  customer: UserPlus,
-  alert: AlertTriangle,
-  message: MessageSquare,
+  pedido: ShoppingBag,
+  cliente: UserPlus,
+  alerta: AlertTriangle,
+  mensaje: MessageSquare,
 };
 
 const typeColor: Record<Type, string> = {
-  order: "bg-primary/10 text-primary",
-  customer: "bg-success/10 text-success",
-  alert: "bg-warning/10 text-warning",
-  message: "bg-accent text-accent-foreground",
+  pedido: "bg-primary/10 text-primary",
+  cliente: "bg-success/10 text-success",
+  alerta: "bg-warning/10 text-warning",
+  mensaje: "bg-accent text-accent-foreground",
 };
 
 function NotificationsPage() {
   const [items, setItems] = useState<Notif[]>(initial);
-  const [filter, setFilter] = useState<Type | "all" | "unread">("all");
+  const [filter, setFilter] = useState<Type | "todo" | "no leido">("todo");
 
   const filtered = useMemo(
     () =>
       items.filter((n) => {
-        if (filter === "all") return true;
-        if (filter === "unread") return !n.read;
+        if (filter === "todo") return true;
+        if (filter === "no leido") return !n.read;
         return n.type === filter;
       }),
     [items, filter],
@@ -116,7 +116,7 @@ function NotificationsPage() {
     <DashboardLayout title="Notificaciones" subtitle={`${unreadCount} sin leer`}>
       <div className="flex flex-wrap items-center gap-2 justify-between">
         <div className="flex items-center gap-2 flex-wrap">
-          {(["all", "unread", "order", "customer", "alert", "message"] as const).map((f) => (
+          {(["todo", "no leido", "pedido", "cliente", "alerta", "mensaje"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
